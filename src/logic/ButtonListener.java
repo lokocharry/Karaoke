@@ -27,7 +27,8 @@ public class ButtonListener implements ActionListener {
 		case "add":
 			Node n=new Node(nodeId,  (short)Integer.parseInt((String) t.getNm().getBxStorage().getSelectedItem()),
 					(short)Integer.parseInt((String) t.getNm().getBxMemory().getSelectedItem()),
-					(short)Integer.parseInt((String) t.getNm().getBxProcessing().getSelectedItem()));
+					(short)Integer.parseInt((String) t.getNm().getBxProcessing().getSelectedItem()),
+					(String)t.getNm().getBxProcessingType().getSelectedItem());
 			t.getNm().addNodeToTable(n);
 			t.getNm().addNodeToList(n);
 			t.getNm().log("Nodo creado");

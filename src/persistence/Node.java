@@ -11,13 +11,15 @@ public class Node implements NodeClassListener {
 	private short storage;
 	private short memory;
 	private short processing;
+	private String processingType;
 	private ArrayList<Process> processes;
 	
-	public Node(int id, short storage, short memory, short processing){
+	public Node(int id, short storage, short memory, short processing, String processingType){
 		this.id=id;
 		this.storage=storage;
 		this.memory=memory;
 		this.processing=processing;
+		this.processingType=processingType;
 		processes=new ArrayList<>();
 		onCreate(new NodeEvent(this, this));
 	}
@@ -30,13 +32,14 @@ public class Node implements NodeClassListener {
 	}
 	
 	public Object[] toVector(){
-		Object [] aux=new Object[6];
+		Object [] aux=new Object[7];
 		aux[0]=id;
 		aux[1]=storage;
 		aux[2]=processing;
 		aux[3]=memory;
-		aux[4]=memory+storage+processing;
-		aux[5]=processes.size();
+		aux[4]=processingType;
+		aux[5]=memory+storage+processing;
+		aux[6]=processes.size();
 		return aux;
 	}
 
@@ -70,6 +73,14 @@ public class Node implements NodeClassListener {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getProcessingType() {
+		return processingType;
+	}
+
+	public void setProcessingType(String processingType) {
+		this.processingType = processingType;
 	}
 
 	@Override

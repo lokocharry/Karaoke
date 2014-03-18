@@ -49,10 +49,12 @@ public class NodeManager extends JFrame {
 	private JPanel panelProcessCreation;
 	private JLabel lblMemory;
 	private JLabel lblStorage;
-	private JLabel lblProcessing;;
+	private JLabel lblProcessing;
+	private JLabel lblProcessingType;
 	private JComboBox<String> bxMemory;
 	private JComboBox<String> bxStorage;
 	private JComboBox<String> bxProcessing;
+	private JComboBox<String> bxProcessingType;
 	
 	private JLabel lblFile;
 	private JTextField txtFile;
@@ -74,7 +76,7 @@ public class NodeManager extends JFrame {
 		tabPanel.setBorder(BorderFactory.createTitledBorder("Monitor"));
 		
 		panel1=new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		String values1 []={"Número", "Almacenamiento", "Procesamiento", "Memoria", "Evaluación", "Procesos"};
+		String values1 []={"Número", "Almacenamiento", "Procesamiento", "Memoria", "Tipo de procesamiento", "Evaluación", "Procesos"};
 		tmn=new DefaultTableModel(values1, 0);
 		nodes=new JTable(tmn);
 		panel1.setViewportView(nodes);
@@ -82,14 +84,17 @@ public class NodeManager extends JFrame {
 		panel2=new JPanel();
 		panel2.setLayout(new GridLayout(2, 1));
 		String [] aux={"2", "4", "16"};
+		String [] aux2={"Serial", "Paralelo"};
 		panelNodeCreation=new JPanel();
 		panelNodeCreation.setBorder(BorderFactory.createTitledBorder("Crear Nodo"));
 		lblMemory=new JLabel("Memoria");
 		bxMemory=new JComboBox<>(aux);
-		lblStorage=new JLabel("Memoria");
+		lblStorage=new JLabel("Almacenamiento");
 		bxStorage=new JComboBox<>(aux);
-		lblProcessing=new JLabel("Memoria");
+		lblProcessing=new JLabel("Procesamiento");
 		bxProcessing=new JComboBox<>(aux);
+		lblProcessingType=new JLabel("Tipo de procesamiento");
+		bxProcessingType=new JComboBox<>(aux2);
 		btnAddNode=new JButton("Crear Nodo");
 		btnAddNode.setActionCommand("add");
 		btnAddNode.addActionListener(bl);
@@ -99,6 +104,8 @@ public class NodeManager extends JFrame {
 		panelNodeCreation.add(bxStorage);
 		panelNodeCreation.add(lblProcessing);
 		panelNodeCreation.add(bxProcessing);
+		panelNodeCreation.add(lblProcessingType);
+		panelNodeCreation.add(bxProcessingType);
 		panelNodeCreation.add(btnAddNode);
 		panelNodeList=new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelNodeList.setBorder(BorderFactory.createTitledBorder("Nodos"));
@@ -193,6 +200,10 @@ public class NodeManager extends JFrame {
 
 	public JTextField getTxtFile() {
 		return txtFile;
+	}
+
+	public JComboBox<String> getBxProcessingType() {
+		return bxProcessingType;
 	}
 	
 }
