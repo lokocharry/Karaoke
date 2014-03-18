@@ -21,7 +21,5 @@ public class GUINode extends JFrame {
 	public void setNode(Node node) {
 		this.node = node;
 	}
-	
-	
 
 }
