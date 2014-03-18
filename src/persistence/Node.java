@@ -13,7 +13,10 @@ public class Node implements NodeClassListener {
 	private short processing;
 	private String processingType;
 	private ArrayList<Process> processes;
+	private Thread thread;
 	
+
+
 	public Node(int id, short storage, short memory, short processing, String processingType){
 		this.id=id;
 		this.storage=storage;
@@ -83,6 +86,15 @@ public class Node implements NodeClassListener {
 		this.processingType = processingType;
 	}
 
+	
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("[Memory: %s, Storage: %s, Processing: %s]", memory, storage, processing);
