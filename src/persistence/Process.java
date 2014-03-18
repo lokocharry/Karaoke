@@ -8,11 +8,13 @@ import java.io.IOException;
 
 public class Process {
 	
+	private int id;
 	private File file;
 	private FileReader fr;
 	private BufferedReader br;
 	
-	public Process(String path){
+	public Process(int id, String path){
+		this.id=id;
 		file=new File(path);
 		try {
 			fr=new FileReader(file);
@@ -32,6 +34,13 @@ public class Process {
 		}
 		return line;
 	}
+	
+	public Object[] toVector(){
+		Object [] aux=new Object [2];
+		aux[0]=id;
+		aux[1]=file.toString();
+		return aux;
+	}
 
 	public File getFile() {
 		return file;
@@ -47,6 +56,14 @@ public class Process {
 
 	public void setFr(FileReader fr) {
 		this.fr = fr;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

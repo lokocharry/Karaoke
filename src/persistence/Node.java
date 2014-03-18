@@ -64,6 +64,14 @@ public class Node implements NodeClassListener {
 		this.processing = processing;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[Memory: %s, Storage: %s, Processing: %s]", memory, storage, processing);
@@ -71,18 +79,17 @@ public class Node implements NodeClassListener {
 
 	@Override
 	public void onCreate(NodeEvent n) {
-		System.out.println("Nodo creado");
+		
 	}
 
 	@Override
 	public void onProcessAdd(NodeEvent n) {
-		System.out.println("Proceso añadido");
-		System.out.println(n.getNode().toString());
+		
 	}
 
 	@Override
 	public void onProcessEnded(NodeEvent n) {
-		System.out.println("Proceso terminado");
+		
 	}
 	
 //	public static void main(String[] args) {

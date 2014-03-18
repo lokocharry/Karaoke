@@ -3,14 +3,18 @@ package logic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
+
 import persistence.Node;
+import persistence.Process;
 import test.Test;
-import util.Util;
 
 public class ButtonListener implements ActionListener {
 	
-	private int id=0;
+	private int nodeId=1;
+	private int processId=1;
 	private Test t;
+	private Process p;
 	
 	public ButtonListener(Test t){
 		this.t=t;
@@ -19,13 +23,29 @@ public class ButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action=e.getActionCommand();
-		if(action.equals("add")){
-			t.getNm().addNode(new Node(id,  (short)Integer.parseInt((String) t.getNm().getBxStorage().getSelectedItem()),
-											(short)Integer.parseInt((String) t.getNm().getBxMemory().getSelectedItem()),
-											(short)Integer.parseInt((String) t.getNm().getBxProcessing().getSelectedItem())));
-			t.getNm().getTxtLog().append(">>>"+Util.fecha()+": Nodo creado\n");
-			id++;
+		switch (action) {
+		case "add":
+			Node n=new Node(nodeId,  (short)Integer.parseInt((String) t.getNm().getBxStorage().getSelectedItem()),
+					(short)Integer.parseInt((String) t.getNm().getBxMemory().getSelectedItem()),
+					(short)Integer.parseInt((String) t.getNm().getBxProcessing().getSelectedItem()));
+			t.getNm().addNodeToTable(n);
+			t.getNm().addNodeToList(n);
+			t.getNm().log("Nodo creado");
+			nodeId++;
+		break;
+		case "file":
+			if (t.getNm().getFc().showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+				p=new Process(processId, t.getNm().getFc().getSelectedFile().toString());
+				t.getNm().getTxtFile().setText(t.getNm().getFc().getSelectedFile().toString());
+		    }		
+		break;
+		case "create":
+			t.getProcessList().add(p);
+			t.getNm().addProcess(p);
+			t.getNm().getTxtFile().setText("");
+			t.getNm().log("Proceso creado");
+			p=null;
+		break;	
 		}
 	}
-
 }

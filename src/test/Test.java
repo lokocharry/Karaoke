@@ -1,12 +1,18 @@
 package test;
 
+import java.util.ArrayList;
+
 import logic.ButtonListener;
+import persistence.Node;
+import persistence.Process;
 import presentation.NodeManager;
 
 public class Test {
 	
 	private NodeManager nm;
 	private ButtonListener bl;
+	private ArrayList<Process> processList;
+	private ArrayList<Node> nodeList;
 	
 	public NodeManager getNm() {
 		if(nm==null)
@@ -18,6 +24,18 @@ public class Test {
 		if(bl==null)
 			bl=new ButtonListener(this);
 		return bl;
+	}
+
+	public ArrayList<Process> getProcessList() {
+		if(processList==null)
+			processList=new ArrayList<>();
+		return processList;
+	}
+
+	public ArrayList<Node> getNodeList() {
+		if(nodeList==null)
+			nodeList=new ArrayList<>();
+		return nodeList;
 	}
 
 	public static void main(String[] args) {
