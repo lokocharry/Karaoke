@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import logic.ButtonListener;
 import persistence.Node;
@@ -24,6 +25,10 @@ public class Test {
 		if(bl==null)
 			bl=new ButtonListener(this);
 		return bl;
+	}
+
+	public void setNodeList(ArrayList<Node> nodeList) {
+		this.nodeList = nodeList;
 	}
 
 	public ArrayList<Process> getProcessList() {

@@ -43,8 +43,9 @@ public class ButtonListener implements ActionListener {
 		case "create":
 			t.getProcessList().add(p);
 			t.getNm().addProcess(p);
-			t.getNm().getTxtFile().setText("");
+			t.getNm().getTxtFile().setText("Archivo no seleccionado");
 			t.getNm().log("Proceso creado");
+			t.getNm().stratThread();
 			p=null;
 		break;	
 		}

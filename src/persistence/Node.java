@@ -15,8 +15,6 @@ public class Node implements NodeClassListener {
 	private ArrayList<Process> processes;
 	private Thread thread;
 	
-
-
 	public Node(int id, short storage, short memory, short processing, String processingType){
 		this.id=id;
 		this.storage=storage;
@@ -45,6 +43,10 @@ public class Node implements NodeClassListener {
 		aux[6]=processes.size();
 		return aux;
 	}
+	
+	public int getCapacity(){
+		return (memory+storage+processing)-processes.size();
+	}
 
 	public short getStorage() {
 		return storage;
@@ -64,6 +66,10 @@ public class Node implements NodeClassListener {
 
 	public short getProcessing() {
 		return processing;
+	}
+
+	public ArrayList<Process> getProcesses() {
+		return processes;
 	}
 
 	public void setProcessing(short processing) {

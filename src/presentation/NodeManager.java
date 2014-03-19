@@ -21,6 +21,7 @@ import persistence.Node;
 import persistence.Process;
 
 import logic.ButtonListener;
+import logic.ProcessThread;
 
 import test.Test;
 import util.Util;
@@ -42,6 +43,9 @@ public class NodeManager extends JFrame {
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel auxPanel;
+	
+	private Thread thread;
+	private ProcessThread pt;
 	
 	private JPanel panelNodeCreation;
 	private JScrollPane panelNodeList;
@@ -156,6 +160,14 @@ public class NodeManager extends JFrame {
 		
 		add(tabPanel);
 		add(log);
+	}
+	
+	public void stratThread(){
+		if(thread==null&&pt==null){
+			pt=new ProcessThread(t);
+			thread=new Thread(pt);
+			thread.start();
+		}
 	}
 	
 	public void addNodeToTable(Node n){

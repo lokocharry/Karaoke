@@ -27,7 +27,7 @@ public class GUINode extends JFrame {
 		getContentPane().add(progressBar);
 		
 		String[] aux={
-				"numero ", "cansion"
+				"Número ", "Canción"
 			};
 		table = new JTable();
 		table.setModel(new DefaultTableModel( aux,0

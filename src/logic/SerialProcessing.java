@@ -1,17 +1,15 @@
 package logic;
 
-import java.util.ArrayList;
-
+import persistence.Node;
 import persistence.Process;
 
 public class SerialProcessing implements Runnable{
 
-	private ArrayList<Process> processes;
+	private Node node; 
 	private boolean pause = false;
 	
-	
-	public SerialProcessing(ArrayList<Process> processes){
-		this.processes = processes;
+	public SerialProcessing(Node node){
+		this.node=node;
 	}
 	
 	public synchronized void pause(){
@@ -27,8 +25,8 @@ public class SerialProcessing implements Runnable{
 
 		do{
 			if(pause!=true)
-			if(processes.isEmpty()==false){
-				Process p = processes.get(0);
+			if(node.getProcesses().isEmpty()==false){
+				Process p = node.getProcesses().get(0);
 				String aux = "";
 				while((aux=p.readLine())!=null){
 					System.out.println(aux);

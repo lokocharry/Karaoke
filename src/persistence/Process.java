@@ -41,6 +41,11 @@ public class Process {
 		aux[1]=file.toString();
 		return aux;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("[ID: %s, Archivo: %s]", id, file.toString());
+	}
 
 	public File getFile() {
 		return file;
