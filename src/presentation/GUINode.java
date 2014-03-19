@@ -51,4 +51,13 @@ public class GUINode extends JFrame {
 	public void setNode(Node node) {
 		this.node = node;
 	}
+	
+	public static void main(String[] args) {
+		
+		GUINode n = new GUINode(null);
+		n.setVisible(true);
+		n.setSize(500, 500);
+		
+		
+	}
 }
