@@ -23,7 +23,9 @@ public class GUINode extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(126, 182, 276, 14);
+		progressBar.setForeground(Color.GREEN);
+		progressBar.setStringPainted(true);
+		progressBar.setBounds(123, 237, 279, 14);
 		getContentPane().add(progressBar);
 		
 		String[] aux={
@@ -34,12 +36,11 @@ public class GUINode extends JFrame {
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(52);
 		table.getColumnModel().getColumn(1).setPreferredWidth(103);
-		table.setBorder(new CompoundBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 2)), null));
-		table.setBounds(10, 123, 86, 128);
+		table.setBounds(27, 123, 86, 128);
 		getContentPane().add(table);
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(123, 32, 279, 128);
+		textPane.setBounds(123, 32, 279, 194);
 		getContentPane().add(textPane);
 	}
 
