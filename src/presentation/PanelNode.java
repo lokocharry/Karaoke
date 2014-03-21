@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import logic.ParallelProcessing;
+import logic.SerialProcessing;
+
 import persistence.Node;
 
 public class PanelNode extends JPanel {
@@ -18,8 +21,8 @@ public class PanelNode extends JPanel {
 	private JLabel lblNode;
 	private Node node;
 	
-	public PanelNode(Node node){
-		this.node=node;
+	public PanelNode(Node n){
+		this.node=n;
 		lblNode=new JLabel("ID: "+this.node.getId());
 		btnState=new JToggleButton("OFF");
 		btnState.addItemListener(new ItemListener() {
@@ -27,8 +30,16 @@ public class PanelNode extends JPanel {
 			public void itemStateChanged(ItemEvent ev) {
 				if(ev.getStateChange()==ItemEvent.SELECTED){
 					btnState.setText("ON");
+					if(node.getRun() instanceof SerialProcessing)
+						((SerialProcessing) node.getRun()).play();
+					else
+						((ParallelProcessing) node.getRun()).play();
 			      } else if(ev.getStateChange()==ItemEvent.DESELECTED){
 			    	  btnState.setText("OFF");
+			    	  if(node.getRun() instanceof SerialProcessing)
+							((SerialProcessing) node.getRun()).stop();
+			    	  else
+						((ParallelProcessing) node.getRun()).stop();
 			      }
 			}
 		});

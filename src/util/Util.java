@@ -1,9 +1,17 @@
 package util;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
 import persistence.Node;
+import persistence.Process;
 
 public class Util {
 
@@ -26,6 +34,34 @@ public class Util {
 			}
 		}
 		return o;
+	}
+	
+	public static void printArray(ArrayList<Process> arrayList){
+		for (int i = 0; i < arrayList.size(); i++) {
+			System.out.println(arrayList.get(i).toString());
+		}
+	}
+	
+	public static void paintLyrics(JTextPane textPane, String a){
+		StyledDocument doc = textPane.getStyledDocument();
+		for (int i = 0; i < a.length(); i++) {
+			Style style = textPane.addStyle("I'm a Style", null);
+	        StyleConstants.setForeground(style, Color.red);
+
+	        try { doc.insertString(doc.getLength(), a.substring(0,i),style); }
+	        catch (BadLocationException e){}
+
+	        StyleConstants.setForeground(style, Color.blue);
+
+	        try { doc.insertString(doc.getLength(), a.substring(i, a.length()),style); }
+	        catch (BadLocationException e){}
+	        try {
+				Thread.sleep(300);
+				textPane.setText("");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

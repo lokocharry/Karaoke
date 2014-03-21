@@ -3,11 +3,12 @@ package presentation;
 import javax.swing.JFrame;
 
 import persistence.Node;
+import persistence.Process;
+
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,31 +18,38 @@ public class GUINode extends JFrame {
 	
 	private Node node;
 	private JTable table;
+	private JScrollPane panelProcesses;
+	private JTextPane textPane;
+	private DefaultTableModel dtm;
 	
 	public GUINode(Node node){
 		this.node=node;
-		getContentPane().setLayout(null);
+		setSize(500, 300);
+		setLayout(null);
+		setResizable(false);
 		
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setForeground(Color.GREEN);
 		progressBar.setStringPainted(true);
-		progressBar.setBounds(123, 237, 279, 14);
+		progressBar.setBounds(193, 237, 279, 14);
 		getContentPane().add(progressBar);
 		
-		String[] aux={
-				"Número ", "Canción"
-			};
-		table = new JTable();
-		table.setModel(new DefaultTableModel( aux,0
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(52);
-		table.getColumnModel().getColumn(1).setPreferredWidth(103);
-		table.setBounds(27, 123, 86, 128);
-		getContentPane().add(table);
+		String[] aux={"Número ", "Canción"};
+		dtm=new DefaultTableModel(aux, 0);
+		table = new JTable(dtm);
+		panelProcesses=new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		panelProcesses.setViewportView(table);
+		panelProcesses.setBounds(27, 123, 146, 128);
+		add(panelProcesses);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(123, 32, 279, 194);
-		getContentPane().add(textPane);
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(193, 32, 279, 194);
+		add(textPane);
+	}
+	
+	public void addProcessToTable(Process p){
+		dtm.addRow(p.toVector());
 	}
 
 	public Node getNode() {
@@ -52,12 +60,8 @@ public class GUINode extends JFrame {
 		this.node = node;
 	}
 	
-	public static void main(String[] args) {
-		
-		GUINode n = new GUINode(null);
-		n.setVisible(true);
-		n.setSize(500, 500);
-		
-		
+	public JTextPane getTextPane() {
+		return textPane;
 	}
+	
 }

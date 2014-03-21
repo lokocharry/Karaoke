@@ -2,8 +2,12 @@ package persistence;
 
 import java.util.ArrayList;
 
+import presentation.GUINode;
+
 import logic.NodeClassListener;
 import logic.NodeEvent;
+import logic.ParallelProcessing;
+import logic.SerialProcessing;
 
 public class Node implements NodeClassListener {
 	
@@ -14,6 +18,8 @@ public class Node implements NodeClassListener {
 	private String processingType;
 	private ArrayList<Process> processes;
 	private Thread thread;
+	private Runnable run;
+	private GUINode gn;
 	
 	public Node(int id, short storage, short memory, short processing, String processingType){
 		this.id=id;
@@ -24,12 +30,29 @@ public class Node implements NodeClassListener {
 		processes=new ArrayList<>();
 		onCreate(new NodeEvent(this, this));
 	}
-	
+
 	public void addProcess(Process p){
 		if(processes==null)
 			processes=new ArrayList<>();
 		processes.add(p);
 		this.onProcessAdd(new NodeEvent(this, this));
+	}
+	
+	public void startThread(GUINode gn){
+		this.gn=gn;
+		if(thread==null&&run==null){
+			switch (processingType) {
+			case "Serial":
+				run=new SerialProcessing(this, gn);
+				break;
+			case "Paralelo":
+				run=new ParallelProcessing(this, gn);
+				break;
+			}
+			thread=new Thread(run);
+			thread.start();
+		}
+			
 	}
 	
 	public Object[] toVector(){
@@ -101,6 +124,22 @@ public class Node implements NodeClassListener {
 		this.thread = thread;
 	}
 	
+	public Runnable getRun() {
+		return run;
+	}
+
+	public void setRun(Runnable run) {
+		this.run = run;
+	}
+	
+	public GUINode getGn() {
+		return gn;
+	}
+
+	public void setGn(GUINode gn) {
+		this.gn = gn;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[Memory: %s, Storage: %s, Processing: %s]", memory, storage, processing);
@@ -113,24 +152,13 @@ public class Node implements NodeClassListener {
 
 	@Override
 	public void onProcessAdd(NodeEvent n) {
-		
+		if(processes.isEmpty()==false)
+			gn.addProcessToTable(processes.get(processes.size()-1));
 	}
 
 	@Override
 	public void onProcessEnded(NodeEvent n) {
 		
 	}
-	
-//	public static void main(String[] args) {
-//		Node n=new Node((short)2, (short)2, (short)2);
-//		JFileChooser fc=new JFileChooser();
-//		Process p = null;
-//		if (fc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION)
-//	    {
-//			p=new Process(fc.getSelectedFile().toString());
-//	    }
-//		n.addProcess(p);
-//		System.out.println(p.readLine());
-//	}
 
 }

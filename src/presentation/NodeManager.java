@@ -171,7 +171,6 @@ public class NodeManager extends JFrame {
 	}
 	
 	public void addNodeToTable(Node n){
-		t.getNodeList().add(n);
 		tmn.addRow(n.toVector());
 	}
 	
@@ -188,6 +187,14 @@ public class NodeManager extends JFrame {
 	
 	public void log(String text){
 		txtLog.append(">>>"+Util.fecha()+": "+text+"\n");
+	}
+
+	public DefaultTableModel getTmn() {
+		return tmn;
+	}
+
+	public DefaultTableModel getTmp() {
+		return tmp;
 	}
 
 	public JTextArea getTxtLog() {
