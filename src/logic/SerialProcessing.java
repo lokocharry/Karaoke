@@ -2,36 +2,43 @@ package logic;
 
 import persistence.Node;
 import persistence.Process;
-import presentation.GUINode;
+import presentation.PanelKaraoke;
 import util.Util;
 
 public class SerialProcessing implements Run, Runnable{
 
 	private Node node; 
 	private volatile boolean pause = true;
-	private GUINode gn;
+	private PanelKaraoke pk;
+	private Process p;
 	
-	public SerialProcessing(Node node, GUINode gn){
+	public SerialProcessing(Node node, PanelKaraoke pk){
 		this.node=node;
-		this.gn=gn;
+		this.pk=pk;
 	}
 
 	@Override
 	public void run() {
 		do{
-			if(pause!=true)
-			if(node.getProcesses().isEmpty()==false){
-				Process p = node.getProcesses().remove(0);
-				String aux = "";
-				while((aux=p.readLine())!=null){
-					if(pause==true)
-						break;
-					Util.paintLyrics(gn.getTextPane(), aux);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+			if(pause==false){
+				if(p!=null){
+					String aux = p.readLine();
+					if(aux!=null){
+						Util.paintLyrics(pk.getTextPane(), aux);
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
+					else{
+						node.onProcessEnded(new NodeEvent(this, node), p.getId());
+						p=null;
+					}
+			}
+				else{
+					if(node.getProcesses().isEmpty()==false)
+						p = node.getProcesses().remove(0);
 				}
 			}
 		}while(true);

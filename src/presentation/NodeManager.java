@@ -185,6 +185,15 @@ public class NodeManager extends JFrame {
 		tmp.addRow(p.toVector());
 	}
 	
+	public void updateNode(int id, int value){
+		for (int i = tmn.getRowCount() - 1; i >= 0; --i) {
+	            if (tmn.getValueAt(i, 0).equals(id)) {
+	                tmn.setValueAt(value, i, 6);
+	                break;
+	        }
+	    }
+	}
+	
 	public void log(String text){
 		txtLog.append(">>>"+Util.fecha()+": "+text+"\n");
 	}

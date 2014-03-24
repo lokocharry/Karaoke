@@ -2,12 +2,15 @@ package persistence;
 
 import java.util.ArrayList;
 
-import presentation.GUINode;
+import javax.swing.JFrame;
 
 import logic.NodeClassListener;
 import logic.NodeEvent;
 import logic.ParallelProcessing;
 import logic.SerialProcessing;
+import presentation.GUINodeParallel;
+import presentation.GUINodeSerial;
+import test.Test;
 
 public class Node implements NodeClassListener {
 	
@@ -19,14 +22,16 @@ public class Node implements NodeClassListener {
 	private ArrayList<Process> processes;
 	private Thread thread;
 	private Runnable run;
-	private GUINode gn;
+	private JFrame gn;
+	private Test t;
 	
-	public Node(int id, short storage, short memory, short processing, String processingType){
+	public Node(int id, short storage, short memory, short processing, String processingType, Test t){
 		this.id=id;
 		this.storage=storage;
 		this.memory=memory;
 		this.processing=processing;
 		this.processingType=processingType;
+		this.t=t;
 		processes=new ArrayList<>();
 		onCreate(new NodeEvent(this, this));
 	}
@@ -38,21 +43,20 @@ public class Node implements NodeClassListener {
 		this.onProcessAdd(new NodeEvent(this, this));
 	}
 	
-	public void startThread(GUINode gn){
+	public void startThread(JFrame gn){
 		this.gn=gn;
 		if(thread==null&&run==null){
 			switch (processingType) {
 			case "Serial":
-				run=new SerialProcessing(this, gn);
+				run=new SerialProcessing(this, ((GUINodeSerial) gn).getPanel().getPk());
 				break;
 			case "Paralelo":
-				run=new ParallelProcessing(this, gn);
+				run=new ParallelProcessing(this, (GUINodeParallel) gn, t);
 				break;
 			}
 			thread=new Thread(run);
 			thread.start();
 		}
-			
 	}
 	
 	public Object[] toVector(){
@@ -132,11 +136,11 @@ public class Node implements NodeClassListener {
 		this.run = run;
 	}
 	
-	public GUINode getGn() {
+	public JFrame getGn() {
 		return gn;
 	}
 
-	public void setGn(GUINode gn) {
+	public void setGn(JFrame gn) {
 		this.gn = gn;
 	}
 
@@ -152,13 +156,23 @@ public class Node implements NodeClassListener {
 
 	@Override
 	public void onProcessAdd(NodeEvent n) {
-		if(processes.isEmpty()==false)
-			gn.addProcessToTable(processes.get(processes.size()-1));
+		if(gn instanceof GUINodeParallel){
+			((GUINodeParallel) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
+			((ParallelProcessing)run).add();
+		}
+		else
+			((GUINodeSerial) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
+		t.getNm().updateNode(id, processes.size());
 	}
 
 	@Override
-	public void onProcessEnded(NodeEvent n) {
-		
+	public void onProcessEnded(NodeEvent n, int id) {
+		if(gn instanceof GUINodeParallel)
+			((GUINodeParallel) gn).getPanel().removeRow(id);
+		else
+			((GUINodeSerial) gn).getPanel().removeRow(0);
+		t.getNm().log("Proceso terminado");
+		t.getNm().updateNode(id, processes.size());
 	}
 
 }

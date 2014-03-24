@@ -6,6 +6,6 @@ public interface NodeClassListener extends EventListener {
 	
 	public void onCreate(NodeEvent n);
 	public void onProcessAdd(NodeEvent n);
-	public void onProcessEnded(NodeEvent n);
+	public void onProcessEnded(NodeEvent n, int id);
 
 }

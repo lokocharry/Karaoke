@@ -1,10 +1,13 @@
 package persistence;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Process {
 	
@@ -40,6 +43,38 @@ public class Process {
 		aux[0]=id;
 		aux[1]=file.toString();
 		return aux;
+	}
+	
+	public int getLineCount(){
+		InputStream is = null;
+		int count = 0;
+        boolean empty = true;
+		try {
+			is = new BufferedInputStream(new FileInputStream(file.getAbsolutePath()));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	    try {
+	        byte[] c = new byte[1024];
+	        int readChars = 0;
+	        while ((readChars = is.read(c)) != -1) {
+	            empty = false;
+	            for (int i = 0; i < readChars; ++i) {
+	                if (c[i] == '\n') {
+	                    ++count;
+	                }
+	            }
+	        }
+	    } catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+	        try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
+	    return (count == 0 && !empty) ? 1 : count;
 	}
 	
 	@Override

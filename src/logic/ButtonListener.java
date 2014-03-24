@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import persistence.Node;
 import persistence.Process;
-import presentation.GUINode;
+import presentation.GUINodeParallel;
+import presentation.GUINodeSerial;
 import test.Test;
 
 public class ButtonListener implements ActionListener {
@@ -29,9 +31,13 @@ public class ButtonListener implements ActionListener {
 			Node n=new Node(nodeId,  (short)Integer.parseInt((String) t.getNm().getBxStorage().getSelectedItem()),
 					(short)Integer.parseInt((String) t.getNm().getBxMemory().getSelectedItem()),
 					(short)Integer.parseInt((String) t.getNm().getBxProcessing().getSelectedItem()),
-					(String)t.getNm().getBxProcessingType().getSelectedItem());
+					(String)t.getNm().getBxProcessingType().getSelectedItem(), t);
 			t.getNodeList().add(n);
-			GUINode gn=new GUINode(n);
+			JFrame gn=null;
+			if(n.getProcessingType().equals("Serial"))
+				gn=new GUINodeSerial(n);
+			else
+				gn=new GUINodeParallel(n);
 			n.setGn(gn);
 			t.getNm().addNodeToTable(n);
 			t.getNm().addNodeToList(n);
