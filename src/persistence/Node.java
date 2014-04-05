@@ -156,13 +156,14 @@ public class Node implements NodeClassListener {
 
 	@Override
 	public void onProcessAdd(NodeEvent n) {
+		t.getNm().updateNode(id, processes.size());
 		if(gn instanceof GUINodeParallel){
 			((GUINodeParallel) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
 			((ParallelProcessing)run).add();
 		}
-		else
+		else{
 			((GUINodeSerial) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
-		t.getNm().updateNode(id, processes.size());
+		}
 	}
 
 	@Override

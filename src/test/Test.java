@@ -2,6 +2,9 @@ package test;
 
 import java.util.ArrayList;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import logic.ButtonListener;
 import persistence.Node;
 import persistence.Process;
@@ -43,6 +46,18 @@ public class Test {
 	}
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+	        }
+	        catch (UnsupportedLookAndFeelException e) {
+	        }
+	        catch (ClassNotFoundException e) {
+	        }
+	        catch (InstantiationException e) {
+	        }
+	        catch (IllegalAccessException e) {
+	        	
+	      }
 		Test t=new Test();
 		t.getNm().setVisible(true);
 	}
