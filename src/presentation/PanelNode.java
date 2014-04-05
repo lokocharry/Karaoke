@@ -1,9 +1,13 @@
 package presentation;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -12,12 +16,14 @@ import logic.ParallelProcessing;
 import logic.SerialProcessing;
 
 import persistence.Node;
+import persistence.Process;
 
 public class PanelNode extends JPanel {
 	
 	private static final long serialVersionUID = -8023097265392613744L;
 	
 	private JToggleButton btnState;
+	private JButton btnDelete;
 	private JLabel lblNode;
 	private Node node;
 	
@@ -43,9 +49,35 @@ public class PanelNode extends JPanel {
 			      }
 			}
 		});
+		
+		btnDelete = new JButton("BORRAR");
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ArrayList<Process> aux = node.getProcesses(); 
+				for (int i = 0; i < aux.size(); i++) {
+					node.getT().getNm().addProcess(aux.get(i));
+				}
+				((SerialProcessing) node.getRun()).stop();
+				node.getGn().setVisible(false);
+				node.getGn().dispose();
+				remove();
+			}
+		});
 		setBorder(BorderFactory.createTitledBorder("Nodo #"+this.node.getId()));
 		add(lblNode);
 		add(btnState);
+		add(btnDelete);
+	}
+	
+	private void remove(){		
+		node.getT().getNm().getPanelNodeList().remove(this);
+        this.setVisible(false);
+        node.getT().getNodeList().remove(node);
+        System.out.println(node.getT().getNodeList().size());
+        node.getT().getNm().removeRow(node.getId());
 	}
 
 }

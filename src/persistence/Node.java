@@ -144,6 +144,16 @@ public class Node implements NodeClassListener {
 		this.gn = gn;
 	}
 
+	
+	
+	public Test getT() {
+		return t;
+	}
+
+	public void setT(Test t) {
+		this.t = t;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[Memory: %s, Storage: %s, Processing: %s]", memory, storage, processing);
@@ -153,7 +163,7 @@ public class Node implements NodeClassListener {
 	public void onCreate(NodeEvent n) {
 		
 	}
-
+	
 	@Override
 	public void onProcessAdd(NodeEvent n) {
 		t.getNm().updateNode(id, processes.size());

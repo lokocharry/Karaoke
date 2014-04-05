@@ -194,6 +194,17 @@ public class NodeManager extends JFrame {
 	    }
 	}
 	
+	public void removeRow(int id){
+		if(tmn.getRowCount()>0){
+			for (int i = tmn.getRowCount() - 1; i >= 0; --i) {
+	            if (tmn.getValueAt(i, 0).equals(id)) {
+	            	tmn.removeRow(i);
+	                break;
+	        }
+	    }
+		}
+	}
+	
 	public void log(String text){
 		txtLog.append(">>>"+Util.fecha()+": "+text+"\n");
 	}
@@ -233,5 +244,15 @@ public class NodeManager extends JFrame {
 	public JComboBox<String> getBxProcessingType() {
 		return bxProcessingType;
 	}
+
+	public JScrollPane getPanelNodeList() {
+		return panelNodeList;
+	}
+
+	public void setPanelNodeList(JScrollPane panelNodeList) {
+		this.panelNodeList = panelNodeList;
+	}
+	
+	
 	
 }
