@@ -19,7 +19,7 @@ public class PanelKaraoke extends JPanel {
 		setSize(280, 220);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		progressBar = new JProgressBar();
-		progressBar.setForeground(Color.GREEN);
+		progressBar.setForeground(Color.blue);
 		progressBar.setStringPainted(true);
 		
 		textPane = new JTextPane();

@@ -44,7 +44,7 @@ public class ParallelProcessing implements Run, Runnable{
 	public void add(){
 		if(node.getProcesses().isEmpty()==false){
 			Node n=new Node((short)0, (short)0, (short)0, (short)0, "Serial", t);
-			n.getProcesses().add(node.getProcesses().get(0));
+			n.getProcesses().add(node.getProcesses().remove(0));
 			n.setGn(gn);
 			PanelKaraoke p=new PanelKaraoke();
 			SerialProcessing s=new SerialProcessing(n, p);

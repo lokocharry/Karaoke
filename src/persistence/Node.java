@@ -144,8 +144,6 @@ public class Node implements NodeClassListener {
 		this.gn = gn;
 	}
 
-	
-	
 	public Test getT() {
 		return t;
 	}
@@ -178,10 +176,14 @@ public class Node implements NodeClassListener {
 
 	@Override
 	public void onProcessEnded(NodeEvent n, int id) {
-		if(gn instanceof GUINodeParallel)
+		if(gn instanceof GUINodeParallel){
 			((GUINodeParallel) gn).getPanel().removeRow(id);
-		else
+		}
+		else{
 			((GUINodeSerial) gn).getPanel().removeRow(0);
+			((GUINodeSerial) gn).getPanel().getPk().updateProgress(0);
+		}
+		
 		t.getNm().log("Proceso terminado");
 		t.getNm().updateNode(id, processes.size());
 	}

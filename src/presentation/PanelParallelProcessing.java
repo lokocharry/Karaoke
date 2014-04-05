@@ -52,11 +52,6 @@ public class PanelParallelProcessing extends JPanel {
 	    }
 		}
 	}
-	
-	public void updateProgress(int value){
-//		progressBar.setValue(value);
-//		progressBar.repaint();
-	}
 
 	public Node getNode() {
 		return node;
