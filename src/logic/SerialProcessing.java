@@ -11,6 +11,7 @@ public class SerialProcessing implements Run, Runnable{
 	private volatile boolean pause = true;
 	private PanelKaraoke pk;
 	private Process p;
+	private int line
 	
 	public SerialProcessing(Node node, PanelKaraoke pk){
 		this.node=node;
@@ -19,10 +20,14 @@ public class SerialProcessing implements Run, Runnable{
 
 	@Override
 	public void run() {
+		int percent;
 		do{
 			if(pause==false){
 				if(p!=null){
 					String aux = p.readLine();
+					line++;
+					percent=(int)((line*100)/p.getLineCount());
+					pk.updateProgress(percent);
 					if(aux!=null){
 						Util.paintLyrics(pk.getTextPane(), aux);
 						try {
