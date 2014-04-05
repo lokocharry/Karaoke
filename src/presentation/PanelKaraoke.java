@@ -1,6 +1,7 @@
 package presentation;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;

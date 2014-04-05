@@ -60,7 +60,10 @@ public class PanelNode extends JPanel {
 				for (int i = 0; i < aux.size(); i++) {
 					node.getT().getNm().addProcess(aux.get(i));
 				}
-				((SerialProcessing) node.getRun()).stop();
+				if(node.getRun() instanceof SerialProcessing)				
+					((SerialProcessing) node.getRun()).stop();
+				else
+					((ParallelProcessing) node.getRun()).stop();
 				node.getGn().setVisible(false);
 				node.getGn().dispose();
 				remove();

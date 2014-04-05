@@ -39,6 +39,8 @@ public class SerialProcessing implements Run, Runnable{
 				else{
 					if(node.getProcesses().isEmpty()==false)
 						p = node.getProcesses().remove(0);
+					    if(p!=null)
+					    		node.getGn().setTitle("SE ESTA REPRODUCIENDO: "+p.getFile().getName());
 				}
 			}
 		}while(true);

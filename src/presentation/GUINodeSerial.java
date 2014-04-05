@@ -18,7 +18,6 @@ public class GUINodeSerial extends JFrame {
 		setLayout(null);
 		setResizable(false);
 		setLocation(Util.screenSizeHeight(),0);
-		
 		panel=new PanelSerialProcessing(node);
 		add(panel);
 	}
