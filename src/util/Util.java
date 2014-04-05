@@ -1,6 +1,8 @@
 package util;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -63,5 +65,19 @@ public class Util {
 			}
 		}
 	}
+	
+	public static int screenSizeHeight(){
+		Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension tamanio = tk.getScreenSize();
+	    return  tamanio.height;
+	    
+	}
 
+	public static int screenSizeWidth(){
+		Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension tamanio = tk.getScreenSize();
+	    return  tamanio.width;
+	    
+	}
+	
 }

@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.JFrame;
 
 import persistence.Node;
+import util.Util;
 
 public class GUINodeSerial extends JFrame {
 
@@ -16,6 +17,7 @@ public class GUINodeSerial extends JFrame {
 		setSize(500, 300);
 		setLayout(null);
 		setResizable(false);
+		setLocation(Util.screenSizeHeight(),0);
 		
 		panel=new PanelSerialProcessing(node);
 		add(panel);

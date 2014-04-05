@@ -9,6 +9,7 @@ import logic.ButtonListener;
 import persistence.Node;
 import persistence.Process;
 import presentation.NodeManager;
+import util.Util;
 
 public class Test {
 	
@@ -45,6 +46,8 @@ public class Test {
 		return nodeList;
 	}
 
+
+	
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -60,6 +63,8 @@ public class Test {
 	      }
 		Test t=new Test();
 		t.getNm().setVisible(true);
+		t.getNm().setSize(Util.screenSizeWidth()/2, Util.screenSizeHeight());
+		t.getNm().setResizable(false);
 	}
 	
 

@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.JFrame;
 
 import persistence.Node;
+import util.Util;
 
 public class GUINodeParallel extends JFrame {
 	
@@ -16,6 +17,7 @@ public class GUINodeParallel extends JFrame {
 		this.node=node;
 		setSize(500, 300);
 		setResizable(false);
+		setLocation(Util.screenSizeHeight(),0);
 		panel=new PanelParallelProcessing(node);
 		add(panel);
 	}
