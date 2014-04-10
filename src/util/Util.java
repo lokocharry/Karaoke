@@ -34,6 +34,8 @@ public class Util {
 					o.set(j, aux);
 				}
 			}
+			System.out.println(o.get(i).getId()+" "+o.get(i).getCapacity());
+			System.out.println("-------------------------------------------");
 		}
 		return o;
 	}

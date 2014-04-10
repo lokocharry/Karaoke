@@ -19,7 +19,7 @@ public class ProcessThread implements Runnable {
 				if(t.getProcessList().isEmpty()==false)
 					if(t.getNodeList().get(0).getCapacity()>0){
 						t.getNodeList().get(0).addProcess(t.getProcessList().get(0));
-						Util.printArray(t.getProcessList());
+//						Util.printArray(t.getProcessList());
 						t.getProcessList().remove(0);
 						if(t.getNm().getTmp().getRowCount()>0)
 							t.getNm().getTmp().removeRow(0);

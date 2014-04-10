@@ -72,7 +72,11 @@ public class Node implements NodeClassListener {
 	}
 	
 	public int getCapacity(){
-		return (memory+storage+processing)-processes.size();
+		if (processingType.equals("Serial"))
+			return (memory+storage+processing)-processes.size();
+		else{
+			return (memory+storage+processing)-(((ParallelProcessing) getRun()).getAux().size());
+		}
 	}
 
 	public short getStorage() {
@@ -164,13 +168,14 @@ public class Node implements NodeClassListener {
 	
 	@Override
 	public void onProcessAdd(NodeEvent n) {
-		t.getNm().updateNode(id, processes.size());
 		if(gn instanceof GUINodeParallel){
 			((GUINodeParallel) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
 			((ParallelProcessing)run).add();
+			t.getNm().updateNode(id, ((ParallelProcessing) getRun()).getAux().size());
 		}
 		else{
 			((GUINodeSerial) gn).getPanel().addProcessToTable(processes.get(processes.size()-1));
+			t.getNm().updateNode(id, processes.size());
 		}
 	}
 
@@ -178,14 +183,17 @@ public class Node implements NodeClassListener {
 	public void onProcessEnded(NodeEvent n, int id) {
 		if(gn instanceof GUINodeParallel){
 			((GUINodeParallel) gn).getPanel().removeRow(id);
+			if(((ParallelProcessing) getRun()).getAux().isEmpty()==false)
+				((ParallelProcessing) getRun()).getAux().remove(0);
+			t.getNm().updateNode(id, ((ParallelProcessing) getRun()).getAux().size());
 		}
 		else{
 			((GUINodeSerial) gn).getPanel().removeRow(0);
 			((GUINodeSerial) gn).getPanel().getPk().updateProgress(0);
+			t.getNm().updateNode(id, processes.size());
 		}
 		
 		t.getNm().log("Proceso terminado");
-		t.getNm().updateNode(id, processes.size());
 	}
 
 }

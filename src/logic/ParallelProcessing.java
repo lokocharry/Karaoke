@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import persistence.Node;
+import persistence.Process;
 import presentation.GUINodeParallel;
 import presentation.PanelKaraoke;
 import test.Test;
@@ -15,12 +16,14 @@ public class ParallelProcessing implements Run, Runnable{
 	private ArrayList<SerialProcessing> sp;
 	private Thread thread;
 	private Test t;
+	private ArrayList<Process> aux;
 	
 	public ParallelProcessing(Node node, GUINodeParallel gn, Test t){
 		this.node=node;
 		this.gn=gn;
 		this.t=t;
 		sp=new ArrayList<>();
+		aux=new ArrayList<>();
 	}
 
 	@Override
@@ -44,11 +47,13 @@ public class ParallelProcessing implements Run, Runnable{
 	public void add(){
 		if(node.getProcesses().isEmpty()==false){
 			Node n=new Node((short)0, (short)0, (short)0, (short)0, "Serial", t);
-			n.getProcesses().add(node.getProcesses().remove(0));
+			Process p=node.getProcesses().remove(0);
+			n.getProcesses().add(p);
+			aux.add(p);
 			n.setGn(gn);
-			PanelKaraoke p=new PanelKaraoke();
-			SerialProcessing s=new SerialProcessing(n, p);
-			gn.getPanel().getPanel().add(p);
+			PanelKaraoke pk=new PanelKaraoke();
+			SerialProcessing s=new SerialProcessing(n, pk);
+			gn.getPanel().getPanel().add(pk);
 			sp.add(s);
 			thread=new Thread(s);
 			thread.start();
@@ -63,6 +68,10 @@ public class ParallelProcessing implements Run, Runnable{
 	@Override
 	public void stop() {
 		pause = true;
+	}
+
+	public ArrayList<Process> getAux() {
+		return aux;
 	}
 
 }

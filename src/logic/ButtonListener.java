@@ -63,8 +63,6 @@ public class ButtonListener implements ActionListener {
 					p=null;	
 				}else
 					t.getNm().log("Archivo invalido");
-					
-				
 			} catch (Exception e2) {
 				t.getNm().log("Archivo invalido");
 			}
