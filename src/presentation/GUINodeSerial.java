@@ -14,6 +14,7 @@ public class GUINodeSerial extends JFrame {
 	
 	public GUINodeSerial(Node node){
 		this.node=node;
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setSize(500, 300);
 		setLayout(null);
 		setResizable(false);

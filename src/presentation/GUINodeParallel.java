@@ -15,6 +15,7 @@ public class GUINodeParallel extends JFrame {
 
 	public GUINodeParallel(Node node){
 		this.node=node;
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setSize(500, 300);
 		setResizable(false);
 		setLocation(Util.screenSizeHeight(),0);

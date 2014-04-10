@@ -22,7 +22,7 @@ public class SerialProcessing implements Run, Runnable{
 	public void run() {
 		int percent;
 		do{
-			if(pause==false){
+			if(!pause){
 				if(p!=null){
 					String aux = p.readLine();
 					percent=(int)((line*100)/p.getLineCount());

@@ -62,11 +62,16 @@ public class PanelNode extends JPanel {
 				}
 				if(node.getRun() instanceof SerialProcessing)				
 					((SerialProcessing) node.getRun()).stop();
-				else
+				else{
 					((ParallelProcessing) node.getRun()).stop();
+					for (int i = 0; i < ((ParallelProcessing) node.getRun()).getAux().size(); i++) {
+						node.getT().getNm().addProcess(((ParallelProcessing) node.getRun()).getAux().get(i));
+					}
+				}
 				node.getGn().setVisible(false);
 				node.getGn().dispose();
 				remove();
+				
 			}
 		});
 		setBorder(BorderFactory.createTitledBorder("Nodo #"+this.node.getId()));
