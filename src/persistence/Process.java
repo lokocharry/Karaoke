@@ -41,7 +41,7 @@ public class Process {
 	public Object[] toVector(){
 		Object [] aux=new Object [2];
 		aux[0]=id;
-		aux[1]=file.toString();
+		aux[1]=file.getName();
 		return aux;
 	}
 	

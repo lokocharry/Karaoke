@@ -33,6 +33,7 @@ public class PanelParallelProcessing extends JPanel {
 		panelProcesses.setViewportView(table);		
 		panelProcessing = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panel=new JPanel();
+		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		panelProcessing.setViewportView(panel);
 		add(panelProcessing);
 		add(panelProcesses);

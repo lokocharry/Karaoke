@@ -18,6 +18,8 @@ public class ButtonListener implements ActionListener {
 	private int processId=1;
 	private Test t;
 	private Process p;
+	private Node node;
+	
 	
 	public ButtonListener(Test t){
 		this.t=t;
@@ -41,7 +43,7 @@ public class ButtonListener implements ActionListener {
 			n.setGn(gn);
 			t.getNm().addNodeToTable(n);
 			t.getNm().addNodeToList(n);
-			t.getNm().log("Nodo creado");
+			t.getNm().log("Nodo "+n.getProcessingType()+" numero "+ nodeId + " con puntuacion (" +(n.getMemory() + n.getProcessing()+n.getStorage())+") ha sido creado");
 			n.startThread(gn);
 			gn.setVisible(true);
 			nodeId++;
@@ -58,7 +60,7 @@ public class ButtonListener implements ActionListener {
 				if (p != null) {
 					t.getNm().addProcess(p);
 					t.getNm().getTxtFile().setText("Archivo no seleccionado");
-					t.getNm().log("Proceso creado");
+					t.getNm().log("Proceso" + p.getFile().getName()+" creado");
 					t.getNm().stratThread();
 					p=null;	
 				}else

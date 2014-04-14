@@ -36,14 +36,20 @@ public class PanelNode extends JPanel {
 			public void itemStateChanged(ItemEvent ev) {
 				if(ev.getStateChange()==ItemEvent.SELECTED){
 					btnState.setText("ON");
-					if(node.getRun() instanceof SerialProcessing)
+					node.getT().getNm().log("nodo "+node.getProcessingType()+" numero "+ node.getId()+" se prendio");
+					if(node.getRun() instanceof SerialProcessing){
 						((SerialProcessing) node.getRun()).play();
+						
+					}	
 					else
 						((ParallelProcessing) node.getRun()).play();
 			      } else if(ev.getStateChange()==ItemEvent.DESELECTED){
 			    	  btnState.setText("OFF");
-			    	  if(node.getRun() instanceof SerialProcessing)
+			    	  node.getT().getNm().log("nodo "+node.getProcessingType()+" numero "+ node.getId()+" se apago");
+			    	  if(node.getRun() instanceof SerialProcessing){
 							((SerialProcessing) node.getRun()).stop();
+								
+			    	  }
 			    	  else
 						((ParallelProcessing) node.getRun()).stop();
 			      }
@@ -56,12 +62,15 @@ public class PanelNode extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ArrayList<Process> aux = node.getProcesses(); 
+				ArrayList<Process> aux = node.getProcesses();
+				node.getT().getNm().log("nodo "+node.getProcessingType()+" numero "+ node.getId()+" se ha borrado");
 				for (int i = 0; i < aux.size(); i++) {
 					node.getT().getNm().addProcess(aux.get(i));
 				}
-				if(node.getRun() instanceof SerialProcessing)				
+				if(node.getRun() instanceof SerialProcessing){				
 					((SerialProcessing) node.getRun()).stop();
+				
+				}
 				else{
 					((ParallelProcessing) node.getRun()).stop();
 					for (int i = 0; i < ((ParallelProcessing) node.getRun()).getAux().size(); i++) {
