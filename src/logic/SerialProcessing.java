@@ -38,7 +38,7 @@ public class SerialProcessing implements Run, Runnable{
 					}
 					else{
 						node.getProcesses().remove(p);
-						node.onProcessEnded(new NodeEvent(this, node), p.getId());
+						node.onProcessEnded(new NodeEvent(this, p), p.getId());
 						line=0;
 						p=null;
 					}

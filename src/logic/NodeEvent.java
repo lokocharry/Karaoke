@@ -2,23 +2,23 @@ package logic;
 
 import java.util.EventObject;
 
-import persistence.Node;
+import persistence.Process;
 
 public class NodeEvent extends EventObject {
 	
 	private static final long serialVersionUID = -1680091234734273255L;
 	
-	private Node node;
+	private Process p;
 	private Object source;
 
-	public NodeEvent(Object source, Node node) {
+	public NodeEvent(Object source, Process p) {
 		super(source);
 		this.source=source;
-		this.node=node;
+		this.p=p;
 	}
 
-	public Node getNode() {
-		return node;
+	public Process getP() {
+		return p;
 	}
 
 	public Object getSource() {

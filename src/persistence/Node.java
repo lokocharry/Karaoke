@@ -33,14 +33,14 @@ public class Node implements NodeClassListener {
 		this.processingType=processingType;
 		this.t=t;
 		processes=new ArrayList<>();
-		onCreate(new NodeEvent(this, this));
+		onCreate(new NodeEvent(this, null));
 	}
 
 	public void addProcess(Process p){
 		if(processes==null)
 			processes=new ArrayList<>();
 		processes.add(p);
-		this.onProcessAdd(new NodeEvent(this, this));
+		this.onProcessAdd(new NodeEvent(this, p));
 	}
 	
 	public void startThread(JFrame gn){
@@ -193,7 +193,7 @@ public class Node implements NodeClassListener {
 			t.getNm().updateNode(id, processes.size());
 		}
 		
-		t.getNm().log("Proceso terminado");
+		t.getNm().log("Proceso "+n.getP().getFile().getName()+" terminado");
 	}
 
 }

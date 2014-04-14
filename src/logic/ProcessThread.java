@@ -1,5 +1,6 @@
 package logic;
 
+import persistence.Process;
 import test.Test;
 import util.Util;
 
@@ -20,7 +21,8 @@ public class ProcessThread implements Runnable {
 					if(t.getNodeList().get(0).getCapacity()>0){
 						t.getNodeList().get(0).addProcess(t.getProcessList().get(0));
 //						Util.printArray(t.getProcessList());
-						t.getProcessList().remove(0);
+						Process p=t.getProcessList().remove(0);
+						t.getNm().log("Proceso "+p.getFile().getName()+" asignado al nodo "+t.getNodeList().get(0).getId());
 						if(t.getNm().getTmp().getRowCount()>0)
 							t.getNm().getTmp().removeRow(0);
 					}
